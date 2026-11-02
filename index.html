@@ -127,7 +127,8 @@ h1 { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: .02em; }
 }
 .blk:hover, .blk:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; z-index: 2; }
 .blk.open { background-image: repeating-linear-gradient(135deg, transparent 0 4px, color-mix(in srgb, var(--c) 35%, transparent) 4px 6px); }
-#canvas[data-cw="xs"] .blk { background: var(--c); border: 0; padding: 0; }
+#canvas[data-cw="xs"] .blk { background: color-mix(in srgb, var(--c) 42%, var(--panel)); box-shadow: inset 2px 0 0 var(--c); border: 0; padding: 0; }
+#canvas[data-tx="n"] .blk { background: var(--c); box-shadow: none; }
 #canvas[data-cw="sm"] .blk { border-left-width: 2px; padding: 0; }
 .blk .bt, .blk .bx { display: none; }
 .blk .bt { font-size: 10px; color: var(--mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -135,8 +136,8 @@ h1 { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: .02em; }
 /* wide columns: horizontal text; narrow columns: vertical text (縦書き); too narrow: no text */
 @container (min-height: 14px) and (min-width: 26px) { #canvas[data-tx="h"] .bx { display: block; } }
 @container (min-height: 30px) and (min-width: 60px) { #canvas[data-tx="h"] .bt { display: block; } }
-@container (min-height: 20px) and (min-width: 10px) {
-  #canvas[data-tx="v"] .bx { display: block; writing-mode: vertical-rl; text-combine-upright: digits 2; font-size: 10.5px; line-height: 1.1; }
+@container (min-height: 14px) and (min-width: 6px) {
+  #canvas[data-tx="v"] .bx { display: block; writing-mode: vertical-rl; text-combine-upright: digits 2; font-size: calc(var(--vfs, 10.5) * 1px); line-height: 1.12; }
 }
 .c0 { --c: var(--c0); } .c1 { --c: var(--c1); } .c2 { --c: var(--c2); } .c3 { --c: var(--c3); }
 .c4 { --c: var(--c4); } .c5 { --c: var(--c5); } .c6 { --c: var(--c6); } .c7 { --c: var(--c7); }
@@ -420,7 +421,8 @@ h1 { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: .02em; }
     pph = f.h * Math.pow(Math.max(PPH_MAX, f.h) / f.h, zt);
     canvas.style.setProperty("--cw", cw); canvas.style.setProperty("--pph", pph);
     canvas.dataset.cw = cw >= 56 ? "lg" : cw >= 30 ? "md" : cw >= 14 ? "sm" : "xs";
-    canvas.dataset.tx = cw >= 40 ? "h" : cw >= 13 ? "v" : "n";
+    canvas.dataset.tx = cw >= 40 ? "h" : cw >= 7 ? "v" : "n";
+    canvas.style.setProperty("--vfs", Math.max(6, Math.min(10.5, cw - 3.5)));
     var step = pph >= 30 ? 1 : pph >= 14 ? 2 : pph >= 8 ? 3 : 6;
     canvas.style.setProperty("--gstep", step);
     gut.textContent = "";
