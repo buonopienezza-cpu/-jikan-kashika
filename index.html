@@ -207,8 +207,6 @@ h1 { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: .02em; }
   <button id="new" class="btn primary" type="button">＋ 記録</button>
 </header>
 
-<div id="note" class="note"><span>記録はこの端末のブラウザの中にだけ保存されます。ブラウザのデータを消すと失われるので、ときどき「設定」からバックアップを保存してください。</span><button id="note-x" type="button">閉じる</button></div>
-
 <div id="wrap"><div id="canvas"></div></div>
 
 <div id="overlay" role="dialog" aria-modal="true" aria-labelledby="ed-title">
@@ -608,10 +606,6 @@ h1 { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: .02em; }
     pendingImport = null; writeStore(); closeSettings(); applyTitle(); rebuild(true); toast("バックアップを読み込みました");
   });
   $("s-impno").addEventListener("click", function () { pendingImport = null; $("s-imp").hidden = true; $("s-file").value = ""; });
-
-  /* ---- banner ---- */
-  if (state.note) $("note").hidden = true;
-  $("note-x").addEventListener("click", function () { $("note").hidden = true; state.note = true; writeStore(); });
 
   /* ---- other tabs ---- */
   window.addEventListener("storage", function (e) {
